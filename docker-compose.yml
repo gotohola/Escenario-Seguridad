@@ -1,0 +1,62 @@
+services:
+  router:
+    build: ./router
+    container_name: router-node
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    privileged: true       # <-- NECESARIO para modificar sysctl
+    networks:
+      wifi_net:
+        ipv4_address: 192.168.100.1
+      ext_net:
+        ipv4_address: 192.168.252.11
+
+  client:
+    build: ./client
+    container_name: client-node
+    depends_on:
+      - router
+    cap_add:
+      - NET_ADMIN         # <-- NECESARIO para modificar rutas
+    networks:
+      wifi_net:
+        ipv4_address: 192.168.100.2
+    command: ["tail", "-f", "/dev/null"]
+
+  # ────────────────────────────────  VoIP  ────────────────────────────
+  voip-node:
+    build: ./voip
+    container_name: voip-node
+    depends_on: [router]
+    cap_add:
+      - NET_ADMIN 
+    networks:
+      wifi_net:
+        ipv4_address: 192.168.100.3
+
+  # ───────────────────────────────  LDAP  ─────────────────────────────
+  ldap-node:
+    build: ./ldap
+    container_name: ldap-node
+    depends_on: [router]
+    cap_add:
+      - NET_ADMIN 
+    networks:
+      wifi_net:
+        ipv4_address: 192.168.100.4
+
+networks:
+  wifi_net:
+    driver: bridge
+#    internal: true          # <-- host is no longer on this network
+    ipam:
+      config:
+        - subnet: 192.168.100.0/24
+          gateway: 192.168.100.254
+
+  ext_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.252.0/24

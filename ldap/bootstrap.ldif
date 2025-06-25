@@ -1,0 +1,10 @@
+dn: ou=users,dc=vuln,dc=local
+objectClass: organizationalUnit
+ou: users
+
+dn: uid=alice,ou=users,dc=vuln,dc=local
+objectClass: inetOrgPerson
+sn: Alice
+cn: Alice
+uid: alice
+userPassword: password
