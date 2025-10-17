@@ -5,7 +5,9 @@ COPY config /etc/asterisk
 
 # Agregar wrapper de red y arranque
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+
+USER root
+RUN apt-get update && apt-get install -y iproute2
 
 ENTRYPOINT ["/entrypoint.sh"]
 
