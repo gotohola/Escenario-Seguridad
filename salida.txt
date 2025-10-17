@@ -1,0 +1,35 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.92kB done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 299B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/andrius/asterisk:latest
+#3 DONE 0.8s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [1/4] FROM docker.io/andrius/asterisk:latest@sha256:7a0dc8e3b0030cca3d3187de9f18c67824c312f055e29e807206ec3589aaee2a
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 139B done
+#6 DONE 0.0s
+
+#7 [2/4] COPY config /etc/asterisk
+#7 CACHED
+
+#8 [3/4] COPY entrypoint.sh /entrypoint.sh
+#8 CACHED
+
+#9 [4/4] RUN chmod +x /entrypoint.sh
+#9 0.200 chmod: changing permissions of '/entrypoint.sh': Operation not permitted
+#9 ERROR: process "/bin/sh -c chmod +x /entrypoint.sh" did not complete successfully: exit code: 1
+------
+ > [4/4] RUN chmod +x /entrypoint.sh:
+0.200 chmod: changing permissions of '/entrypoint.sh': Operation not permitted
+------
